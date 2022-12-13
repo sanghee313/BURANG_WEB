@@ -11,17 +11,12 @@
     </style>
   </head>
   <body>
-    <img
-      class="qr"
-      src="{{url_for('static', filename='x.png') }}"
-      width="300"
-      height="100"
-    />
+    <img class="qr" src="{{url_for('static', filename='qr.png') }}" />
 
     <script>
       setTimeout(function () {
         window.location.href = "/";
-      }, 5000);
+      }, 20000);
     </script>
   </body>
 </html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <title>Bootstrap Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      h1 {
+        font-size: 5vw;
+      }
+      video {
+        border-radius: 20px 20px 20px 20px;
+        width: 100%;
+        height: auto;
+      }
+      .semi_box {
+        width: 100%;
+        max-width: 640px;
+        height: auto;
+      }
+      .water_img {
+        /*border-radius: 20px 20px 20px 20px;*/
+        width: 100%;
+        height: auto;
+      }
+      .temper {
+        width: 50%;
+        height: 80%;
+        text-align: center;
+        font-size: 10vw;
+      }
+
+      .middle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .realtime_box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .station_tatotal {
+        display: flex;
+      }
+      </style>
+  </head>
+  <body>
+    <h1>BumRang</h1>
+    <!--태비 영상-->
+    <video width="640" height="360" controls preload="metadata">
+      <source
+      src="{{url_for('static', filename='video.mp4') }}"
+      type="video/mp4"
+    />
+    </video>
+    <br />
+    <br />
+    <!--세미소사 현재 상태-->
+    <h1>SemiSosa</h1>
+    <div class="middle">
+      <div class="temper" width="100%">{{ temperature | int}} ℃</div>
+      {% set tub = tubility | int %} {%if(tub < 2)%}
+      <img
+        class="state_good"
+        src="{{url_for('static', filename='디스플레이-02.png') }}"
+        width="50%"
+        height="90%"
+      />
+      {%else%}
+      <img
+        class="state_bad"
+        src="{{url_for('static', filename='디스플레이-03.png') }}"
+        width="50%"
+        height="90%"
+      />
+      {% endif %}
+
+      <!--<div>{{ tubility | int }}</div>-->
+    </div>
+    <br />
+    <br />
+
+    <!--현재 지도-->
+    <h1>대전광역시 실시간 정수장 수질 </h1>
+    <div class="realtime_box">
+      <img
+      class="water_img"
+      src="{{url_for('static', filename='정수장22.png') }}"
+    />
+
+
+    </div>
+
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne"
+            aria-expanded="false"
+            aria-controls="collapseOne"
+            style="background-color:#b9b5db;"
+          >
+            송촌동 정수장(정상)
+          </button>
+        </h2>
+        <div
+          id="collapseOne"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample"
+          style=
+        >
+          <div class="accordion-body">
+            <table>
+            <tr>
+              <th>잔류염소</th>
+              <td class="data">{{ song_c }}</td>
+              <td>㎎/L</td>
+            </tr>
+            <tr>
+              <th>pH</th>
+              <td class="data">{{ song_p }}</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <th>탁도</th>
+              <td class="data">{{ song_N }}</td>
+              <td>NTU</td>
+            </tr>
+          </table>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo"
+            aria-expanded="false"
+            aria-controls="collapseTwo"
+            style="background-color:#d8c8b6;"
+          >
+            월평 정수장(정상)
+          </button>
+        </h2>
+        <div
+          id="collapseTwo"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingTwo"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <table>
+              <tr>
+                <th>잔류염소</th>
+                <td class="data">{{ wol_c }}</td>
+                <td>㎎/L</td>
+              </tr>
+              <tr>
+                <th>pH</th>
+                <td class="data">{{ wol_p }}</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <th>탁도</th>
+                <td class="data">{{ wol_N }}</td>
+                <td>NTU</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseThree"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+            style="background-color:#bbdbb7;"
+          >
+            신탄진 정수장(정상)
+          </button>
+        </h2>
+        <div
+          id="collapseThree"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingThree"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <table>
+              <tr>
+                <th>잔류염소</th>
+                <td class="data">{{ shin_c }}</td>
+                <td>㎎/L</td>
+              </tr>
+              <tr>
+                <th>pH</th>
+                <td class="data">{{ shin_p }}</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <th>탁도</th>
+                <td class="data">{{ shin_N }}</td>
+                <td>NTU</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
